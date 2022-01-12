@@ -19,10 +19,11 @@ module.exports = {
       'plugin:@typescript-eslint/recommended',
       'prettier',
       'plugin:prettier/recommended',
-      'plugin:jest/recommended',
     ],
     rules: {
       'vue/script-setup-uses-vars': 'error',
       'no-use-before-define': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-unused-vars': 'off',
     },
 }

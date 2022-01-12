@@ -5,7 +5,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "lint:fix": "eslint src/**/*.{ts,tsx,js,jsx,vue}, --quiet --fix --ignore-path ./.eslintignore",
+    "lint:fix": "eslint ./src --ext .jsx,.js,.ts,.tsx,.vue --quiet --fix --ignore-path ./.eslintignore",
     "lint:format": "prettier --loglevel warn --write \"./**/*.{js,jsx,ts,tsx,vue,css,md,json}\" ",
     "lint": "npm run lint:format && npm run lint:fix ",
     "prepare": "husky install",
@@ -17,7 +17,10 @@
     ]
   },
   "dependencies": {
-    "vue": "^3.2.25"
+    "@ant-design/icons-vue": "^6.0.1",
+    "ant-design-vue": "^2.2.8",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.0.2",
@@ -28,12 +31,16 @@
     "conventional-changelog-cli": "^2.2.2",
     "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^25.3.4",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.2.0",
     "husky": "^7.0.0",
+    "less": "^4.1.2",
     "lint-staged": "^12.1.7",
     "prettier": "^2.5.1",
     "typescript": "^4.4.4",
+    "unplugin-auto-import": "^0.5.9",
+    "unplugin-vue-components": "^0.17.11",
     "vite": "^2.7.2",
     "vue-eslint-parser": "^8.0.1",
     "vue-tsc": "^0.29.8"
