@@ -5,7 +5,13 @@
     </a-layout-header>
     <a-layout>
       <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible class="layout-sider">
-        <ComMenu :collapsed="collapsed" />
+        <!-- <ComMenu :collapsed="collapsed" /> -->
+
+        <ComSideMenu />
+        <a-button type="primary" class="menu-trigger" @click="toggleCollapsed">
+          <MenuUnfoldOutlined v-if="collapsed" />
+          <MenuFoldOutlined v-else />
+        </a-button>
       </a-layout-sider>
       <a-layout-content :style="{ padding: '16px', background: '#f0f2f5', minHeight: '280px' }"
         >Content</a-layout-content
@@ -14,23 +20,18 @@
   </a-layout>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import ComHeaderBar from './components/HeaderBar/index.vue'
-import ComMenu from './components/menu/menu.vue'
+// import ComMenu from './components/menu/menu.vue'
+import ComSideMenu from './components/SideMenu'
 
-export default defineComponent({
-  name: 'BaseLayout',
-  components: {
-    ComHeaderBar,
-    ComMenu,
-  },
-  setup() {
-    return {
-      collapsed: ref<boolean>(false),
-    }
-  },
-})
+const collapsed = ref<boolean>(false)
+
+const toggleCollapsed = () => {
+  collapsed.value = !collapsed.value
+}
 </script>
 
 <style>
@@ -43,5 +44,16 @@ export default defineComponent({
 
 .layout-sider {
   padding-top: 16px;
+}
+
+.menu-trigger {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 </style>
