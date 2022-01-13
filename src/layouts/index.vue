@@ -13,9 +13,17 @@
           <MenuFoldOutlined v-else />
         </div>
       </a-layout-sider>
-      <a-layout-content :style="{ padding: '16px', background: '#f0f2f5', minHeight: '280px' }"
-        >Content</a-layout-content
-      >
+      <a-layout-content :style="{ padding: '16px', background: '#f0f2f5', minHeight: '280px' }">
+        <a-card>
+          <!-- <router-view v-slot="{ Component }">
+            <transition name="fade">
+              <component :is="Component" />
+            </transition>
+          </router-view> -->
+
+          <router-view></router-view>
+        </a-card>
+      </a-layout-content>
     </a-layout>
   </a-layout>
 </template>
