@@ -1,8 +1,8 @@
 <template>
   <div class="header-right-wrapper">
-    <a-dropdown placement="bottomCenter">
+    <a-dropdown placement="bottomLeft">
       <template #overlay>
-        <a-menu :selectedKeys="selectedKeys" class="header-menu" @click="handleMenuClick">
+        <a-menu :selected-keys="selectedKeys" class="header-menu" @click="handleMenuClick">
           <a-menu-item key="mine">
             <UserOutlined />
             <span>个人中心</span>
@@ -14,10 +14,10 @@
         </a-menu>
       </template>
 
-      <a class="ant-dropdown-link" @click.prevent>
+      <div class="header-right-setting" @click.prevent>
         <span class="username">用户名</span>
-        <DownOutlined />
-      </a>
+        <DownOutlined style="color: #fff" />
+      </div>
     </a-dropdown>
   </div>
 </template>
