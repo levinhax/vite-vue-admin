@@ -1,5 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import BasicLayout from '../layouts/index.vue'
+import OtherRoutes from './modules/other'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,6 +25,7 @@ const routes: Array<RouteRecordRaw> = [
           auth: ['home'],
         },
       },
+      ...OtherRoutes,
     ],
   },
 ]

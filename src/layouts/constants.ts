@@ -25,4 +25,26 @@ export const menuData: Array<MenuDataItem> = [
       hidden: false,
     },
   },
+  {
+    key: '2',
+    name: 'other',
+    path: '/other',
+    meta: {
+      title: '其它',
+      icon: '',
+      hidden: false,
+    },
+    children: [
+      {
+        key: '2-1',
+        name: 'otherTable',
+        path: '/other/table',
+        meta: {
+          title: '表格',
+          icon: '',
+          hidden: false,
+        },
+      },
+    ],
+  },
 ]

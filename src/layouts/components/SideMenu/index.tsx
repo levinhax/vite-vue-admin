@@ -1,7 +1,6 @@
 import { defineComponent, PropType, VNode } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { Menu } from 'ant-design-vue'
-import { AppstoreOutlined } from '@ant-design/icons-vue'
 import Icon from '@/components/MyIcon/index.vue'
 
 interface MetaRecord {
@@ -48,18 +47,28 @@ export default defineComponent({
   },
   setup(props) {
     const currentRoute = useRoute()
+    const router = useRouter()
     const state = reactive<any>({
-      collapsed: false, // default value
+      collapsed: false,
       openKeys: [],
-      selectedKeys: [currentRoute.name],
+      selectedKeys: [],
     })
 
     const onSelect = (e: { key: string; item: { props: { routeid: number } } } | any) => {
-      console.log('select: ', e.key)
       state.selectedKeys = [e.key]
+      router.push(e.key)
     }
 
-    const getIcon = (type?: string) => (type ? <Icon type={type} /> : <AppstoreOutlined />)
+    // 跟随页面路由变化，切换菜单选中状态
+    watchEffect(() => {
+      if (currentRoute) {
+        state.selectedKeys = [currentRoute.path]
+        const findMenu = props.menuData.find(item => currentRoute.path.includes(item.path))
+        state.openKeys = [findMenu?.path]
+      }
+    })
+
+    const getIcon = (type?: string) => (type ? <Icon type={type} /> : null)
 
     // 递归生成菜单
     const renderMenuItem = (data: MenuDataItem[]): JSX.Element[] => {
@@ -67,7 +76,7 @@ export default defineComponent({
         if (item.children) {
           return (
             <Menu.SubMenu
-              key={item.name}
+              key={item.path}
               title={
                 <>
                   {getIcon(item.meta?.icon as string)}
@@ -80,7 +89,7 @@ export default defineComponent({
           )
         }
         return (
-          <Menu.Item key={item.name}>
+          <Menu.Item key={item.path}>
             {getIcon(item.meta?.icon as string)}
             <span>{item.meta?.title}</span>
           </Menu.Item>
