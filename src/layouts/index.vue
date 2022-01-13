@@ -4,8 +4,8 @@
       <ComHeaderBar />
     </a-layout-header>
     <a-layout>
-      <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
-        <ComMenu />
+      <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible class="layout-sider">
+        <ComMenu :collapsed="collapsed" />
       </a-layout-sider>
       <a-layout-content :style="{ padding: '16px', background: '#f0f2f5', minHeight: '280px' }"
         >Content</a-layout-content
@@ -39,5 +39,9 @@ export default defineComponent({
   display: flex;
   height: 100vh;
   overflow: hidden;
+}
+
+.layout-sider {
+  padding-top: 16px;
 }
 </style>

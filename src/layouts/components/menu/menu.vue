@@ -4,8 +4,7 @@
     v-model:selected-keys="selectedKeys"
     mode="inline"
     theme="dark"
-    :inline-collapsed="collapsed"
-    style="width: 200px"
+    class="side-menu"
     @click="handleMenuClick"
   >
     <template v-for="item in menus" :key="item.path">
@@ -62,9 +61,7 @@ export default defineComponent({
     watch(
       () => currentRoute.fullPath,
       () => {
-        console.log('currentRoute: ', currentRoute)
         if (currentRoute.name == 'login' || props.collapsed) return
-        console.log('currentRoute: ', currentRoute)
         state.openKeys = getOpenKeys()
         state.selectedKeys = [currentRoute.path]
       }
@@ -95,3 +92,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped lang="less">
+// .side-menu {
+//   margin-top: -4px;
+// }
+</style>

@@ -22,8 +22,9 @@ module.exports = {
     ],
     rules: {
       'vue/script-setup-uses-vars': 'error',
-      'no-use-before-define': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
-      'no-unused-vars': 'off',
+      "vue/v-on-event-hyphenation": ["error", "always", {
+        "autofix": false,
+        "ignore": ['finishFailed']
+      }]
     },
 }

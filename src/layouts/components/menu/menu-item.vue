@@ -1,6 +1,6 @@
 <template>
   <template v-if="!menuInfo.meta.hidden">
-    <a-sub-menu v-if="menuInfo.children?.length" :key="menuInfo.name" v-bind="$attrs">
+    <a-sub-menu v-if="menuInfo.children?.length" :key="menuInfo.path" v-bind="$attrs">
       <template #title>
         <span>
           <!-- <icon-font style="color: aliceblue" :type="menuInfo.meta.icon" /> -->
@@ -10,17 +10,17 @@
       </template>
       <template v-for="item in menuInfo.children" :key="item.path">
         <template v-if="!item.children">
-          <a-menu-item :key="item.path">
+          <a-menu-item :key="item.name">
             <!-- <icon-font style="color: aliceblue" :type="item.meta.icon" /> -->
             <span>{{ item.meta.title }}</span>
           </a-menu-item>
         </template>
         <template v-else>
-          <menu-item :menu-info="item" :key="item.name" />
+          <menu-item :key="item.name" :menu-info="item" />
         </template>
       </template>
     </a-sub-menu>
-    <a-menu-item v-else :key="menuInfo.path">
+    <a-menu-item v-else :key="menuInfo.name">
       <!-- <icon-font style="color: aliceblue" :type="menuInfo.meta.icon" /> -->
       <AppstoreOutlined />
       {{ menuInfo.meta.title }}
