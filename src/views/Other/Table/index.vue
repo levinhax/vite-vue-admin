@@ -1,5 +1,5 @@
 <template>
-  <a-tabs v-model:activeKey="activeKey" animated="false">
+  <a-tabs v-model:activeKey="activeKey" :animated="false">
     <a-tab-pane key="1" tab="基础表格">
       <ComBaseTable />
     </a-tab-pane>
