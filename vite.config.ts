@@ -34,6 +34,10 @@ export default defineConfig({
       }
 		}
   },
+  // 配置Dep优化行为
+  optimizeDeps: {
+    include: ['vue', 'ant-design-vue', '@ant-design/icons-vue'],
+  },
   resolve: {
 		alias: {
 			'@': resolve('src')
