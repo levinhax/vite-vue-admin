@@ -47,7 +47,7 @@ import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
 // import { defineComponent, reactive, ref, toRefs, UnwrapRef, onMounted } from 'vue';
 import { defineComponent, reactive, ref, toRefs, UnwrapRef } from 'vue'
 import { useRouter } from 'vue-router'
-// import { apiGetLicense } from '../../api/user';
+import { apiGetLicense } from '../../api/account'
 // import { apiUserLogin } from '../../api/user';
 // import actions from '../../shared/actions';
 // import { authGetFirstLink } from '../../utils/auth';
@@ -101,10 +101,10 @@ export default defineComponent({
       console.log(errors)
     }
 
-    // const getLicenseInfo = async () => {
-    //   const res = await apiGetLicense();
-    //   console.log('getLicenseInfo: ', res);
-    // };
+    const getLicenseInfo = async () => {
+      const res = await apiGetLicense()
+      console.log('getLicenseInfo: ', res)
+    }
 
     // 登陆后路由跳转
     // const handleRoute = () => {
@@ -114,9 +114,9 @@ export default defineComponent({
     //   });
     // };
 
-    // onMounted(() => {
-    //   getLicenseInfo();
-    // });
+    onMounted(() => {
+      getLicenseInfo()
+    })
 
     return {
       ...toRefs(state),

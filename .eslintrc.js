@@ -25,6 +25,8 @@ module.exports = {
       "vue/v-on-event-hyphenation": ["error", "always", {
         "autofix": false,
         "ignore": ['finishFailed']
-      }]
+      }],
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-non-null-assertion': 0, //允许用断言
     },
 }
