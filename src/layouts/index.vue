@@ -14,6 +14,7 @@
         </div>
       </a-layout-sider>
       <a-layout-content :style="{ padding: '16px', background: '#f0f2f5', minHeight: '280px' }">
+        <ComPageBreadCrub />
         <a-card>
           <!-- <router-view v-slot="{ Component }">
             <transition name="fade">
@@ -32,6 +33,7 @@
 import { ref } from 'vue'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import ComHeaderBar from './components/HeaderBar/index.vue'
+import ComPageBreadCrub from './components/PageBreadcrumb/index.vue'
 // import ComMenu from './components/menu/menu.vue'
 import ComSideMenu from './components/SideMenu'
 import { menuData } from './constants'

@@ -7,12 +7,14 @@
       </router-link>
     </div>
     <div class="header-right">
+      <ComPageBreadCrub />
       <HeaderRight />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import ComPageBreadCrub from '../PageBreadcrumb/index.vue'
 import HeaderRight from '../HeaderRight/index.vue'
 
 import logo from '@/assets/logo.png'

@@ -2,6 +2,11 @@ import type { RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: '/other',
+    name: 'other',
+    redirect: '/other/table',
+  },
+  {
     path: '/other/table',
     name: 'otherTable',
     component: () => import('@/views/Other/Table/index.vue'),
@@ -10,6 +15,11 @@ const routes: Array<RouteRecordRaw> = [
       icon: '',
       auth: ['admin'],
     },
+  },
+  {
+    path: '/other/animation',
+    name: 'otherAnimation',
+    redirect: '/other/animation/banner',
   },
   {
     path: '/other/animation/banner',

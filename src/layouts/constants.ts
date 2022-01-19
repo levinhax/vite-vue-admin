@@ -14,6 +14,50 @@ export interface MenuDataItem {
   children?: MenuDataItem[]
 }
 
+interface Breadcrumb {
+  path: string
+  breadcrumbName: string
+  children?: Array<{
+    path: string
+    breadcrumbName: string
+  }>
+}
+
+// export const breadcrumbNameMap: Array<any> = [
+//   {
+//     path: '/home',
+//     breadcrumbName: '首页',
+//   },
+//   {
+//     path: '',
+//     breadcrumbName: '其它',
+//     children: [
+//       {
+//         path: '/other/table',
+//         breadcrumbName: '表格',
+//       },
+//       {
+//         path: '/other/animation',
+//         breadcrumbName: '动画',
+//         children: [
+//           {
+//             path: '/other/animation/banner',
+//             breadcrumbName: '轮播',
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ]
+
+export const breadcrumbNameMap: any = {
+  '/home': '首页',
+  '/other': '其它',
+  '/other/table': '表格',
+  '/other/animation': '动画',
+  '/other/animation/banner': '轮播',
+}
+
 export const menuData: Array<MenuDataItem> = [
   {
     key: '1',

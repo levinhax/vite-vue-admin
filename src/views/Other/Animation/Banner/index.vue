@@ -24,7 +24,15 @@ import BannerImg5 from '@/assets/images/banner5.jpg'
 import BannerImg6 from '@/assets/images/banner6.png'
 import BannerImg7 from '@/assets/images/banner7.png'
 
-let json = [
+export interface IAttrConfig {
+  width: number
+  top: number
+  left: number
+  [opacity: string]: number
+  zIndex: number
+}
+
+let bannerConfig = ref<Array<{ width: number; top: number; left: number; opacity: number; zIndex: number }>>([
   {
     width: 400,
     top: 20,
@@ -60,14 +68,18 @@ let json = [
     opacity: 88,
     zIndex: 2,
   },
-]
+])
 
 let images: Array<any> = []
 let throttle = true // 可设置节流
 
 onMounted(() => {
-  images = [...document.querySelectorAll('.banner-img')]
-  json.forEach((attr, index) => {
+  const allBannerImgs: NodeListOf<Element> = document.querySelectorAll('.banner-img')
+  for (let i = 0; i < allBannerImgs.length; i++) {
+    images.push(allBannerImgs[i])
+  }
+  // images = [...document.querySelectorAll('.banner-img')]
+  bannerConfig.value.forEach((attr, index) => {
     if (index < images.length) {
       animate(images[index], attr, () => {
         // console.log('轮播动画')
@@ -79,19 +91,15 @@ onMounted(() => {
 // 获取元素原本的属性信息
 const getStyle = (obj: HTMLElement, attr: string) => {
   // return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj, null)[attr] // 只有IE和Opera支持使用CurrentStyle
-  return window.getComputedStyle(obj, null)[attr]
+  return (window as any).getComputedStyle(obj, null)[attr]
 }
 
-const animate = (
-  obj: any,
-  json: { [x: string]: number; width?: number; top?: number; left?: number; opacity?: number; zIndex?: number },
-  fn: { (): void; (): void; (): any }
-) => {
+const animate = (obj: any, attrConfig: IAttrConfig, fn: { (): void; (): void; (): any }) => {
   clearInterval(obj.timer)
   // 开启一个定时器
   obj.timer = setInterval(() => {
     let flag = true
-    for (let attr in json) {
+    for (let attr in attrConfig) {
       let current = 0
       // 获取元素属性的当前值, 没有则取0
       current =
@@ -99,22 +107,22 @@ const animate = (
           ? Math.round(parseInt(String(getStyle(obj, attr) * 100))) || 0
           : parseInt(getStyle(obj, attr))
       // 计算一个 "叠加值", (目标值 - 当前值) / 10, 10不是固定, 可根据效果来调整, 就好比控制时间
-      let step = (json[attr] - current) / 10
+      let step = (attrConfig[attr] - current) / 10
       // 大于零向上取整, 小于零向下取整
       step = step > 0 ? Math.ceil(step) : Math.floor(step)
-      if (attr == 'opacity') {
+      if (attr === 'opacity') {
         // 判断是否支持透明度属性
         if ('opacity' in obj.style) {
           obj.style.opacity = (current + step) / 100
         } else {
           obj.style.filter = 'alpha(opacity = ' + (current + step) * 10 + ')'
         }
-      } else if (attr == 'zIndex') {
-        obj.style.zIndex = json[attr]
+      } else if (attr === 'zIndex') {
+        obj.style.zIndex = attrConfig[attr]
       } else {
         obj.style[attr] = current + step + 'px' // 不断添加 "叠加值" 让当前值最终等于目标值
       }
-      if (current != json[attr]) flag = false // 当前值等于目标值, 即可停止定时器
+      if (current !== attrConfig[attr]) flag = false // 当前值等于目标值, 即可停止定时器
     }
     if (flag) {
       clearInterval(obj.timer)
@@ -127,12 +135,16 @@ const animate = (
 // 切换
 const changeBanner = (flag: boolean) => {
   if (flag) {
-    json.push(json.shift())
+    const prevBannerConfig = JSON.parse(JSON.stringify(bannerConfig.value))
+    prevBannerConfig.push(prevBannerConfig.shift())
+    bannerConfig.value = prevBannerConfig
   } else {
-    json.unshift(json.pop())
+    const prevBannerConfig = JSON.parse(JSON.stringify(bannerConfig.value))
+    prevBannerConfig.unshift(prevBannerConfig.pop())
+    bannerConfig.value = prevBannerConfig
   }
   // 重新调整样式
-  json.forEach((attr, index) => {
+  bannerConfig.value.forEach((attr, index) => {
     animate(images[index], attr, () => {
       // console.log('轮播动画')
     })
