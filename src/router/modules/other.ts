@@ -11,6 +11,16 @@ const routes: Array<RouteRecordRaw> = [
       auth: ['admin'],
     },
   },
+  {
+    path: '/other/animation/banner',
+    name: 'otherAnimationBanner',
+    component: () => import('@/views/Other/Animation/Banner/index.vue'),
+    meta: {
+      title: '轮播动画',
+      icon: '',
+      auth: ['admin'],
+    },
+  },
 ]
 
 export default routes

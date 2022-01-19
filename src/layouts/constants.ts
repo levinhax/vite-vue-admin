@@ -45,6 +45,28 @@ export const menuData: Array<MenuDataItem> = [
           hidden: false,
         },
       },
+      {
+        key: '2-2',
+        name: 'otherAnimation',
+        path: '/other/animation',
+        meta: {
+          title: '动画',
+          icon: '',
+          hidden: false,
+        },
+        children: [
+          {
+            key: '2-2-1',
+            name: 'otherAnimationBanner',
+            path: '/other/animation/banner',
+            meta: {
+              title: '轮播',
+              icon: '',
+              hidden: false,
+            },
+          },
+        ],
+      },
     ],
   },
 ]
