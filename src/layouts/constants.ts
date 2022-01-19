@@ -65,7 +65,7 @@ export const menuData: Array<MenuDataItem> = [
     path: '/home',
     meta: {
       title: '首页',
-      icon: '',
+      icon: 'home',
       hidden: false,
     },
   },
@@ -75,7 +75,7 @@ export const menuData: Array<MenuDataItem> = [
     path: '/other',
     meta: {
       title: '其它',
-      icon: '',
+      icon: 'setting',
       hidden: false,
     },
     children: [
