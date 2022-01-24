@@ -6,6 +6,7 @@ import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import viteSvgIcons from 'vite-plugin-svg-icons'
 
 const resolve = dir => path.resolve(process.cwd(), dir)
 
@@ -21,6 +22,12 @@ export default defineConfig({
       dts: 'src/auto-imports.d.ts',
     }),
     vueJsx(),
+    viteSvgIcons({
+      // 指定需要缓存的图标文件夹
+      iconDirs: [resolve('src/assets/icons')],
+      // 指定symbolId格式
+      symbolId: 'icon-[dir]-[name]',
+    }),
   ],
   server: {
     // port: 3000,

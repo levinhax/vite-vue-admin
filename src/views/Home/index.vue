@@ -2,11 +2,14 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import HelloWorld from '@/components/HelloWorld.vue'
+
+import SvgIcon from '@/components/SvgIcon/index.vue'
 </script>
 
 <template>
   <div class="home-wrapper">
     <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+    <SvgIcon name="dataAssets" size="default" color="#f00" />
   </div>
 </template>
 
