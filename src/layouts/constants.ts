@@ -56,7 +56,118 @@ export const breadcrumbNameMap: any = {
   '/other/table': '表格',
   '/other/animation': '动画',
   '/other/animation/banner': '轮播',
+  '/micro1': 'Vue子应用',
+  '/micro1/home': '首页',
+  '/micro1/about': '关于',
+  '/micro2': 'React子应用',
+  '/micro2/home': '首页',
+  '/micro2/about': '关于',
+  '/micro2/form': '表单',
+  '/micro2/form/mixForm': '多表单',
+  '/micro2/form/reactHookForm': 'reactHookForm',
 }
+
+export const microVueMenus: Array<MenuDataItem> = [
+  {
+    key: 'micro1',
+    name: 'qiankun-micro-vue2',
+    path: '/micro1',
+    meta: {
+      title: '子应用Vue2',
+      icon: 'setting',
+      hidden: false,
+    },
+    children: [
+      {
+        key: 'micro1-home',
+        name: 'home',
+        path: '/micro1/home',
+        meta: {
+          title: '主页',
+          icon: '',
+          hidden: false,
+        },
+      },
+      {
+        key: 'micro1-about',
+        name: 'about',
+        path: '/micro1/about',
+        meta: {
+          title: '关于',
+          icon: '',
+          hidden: false,
+        },
+      },
+    ],
+  },
+]
+
+export const microReactMenus: Array<MenuDataItem> = [
+  {
+    key: 'micro2',
+    name: 'qiankun-micro-react',
+    path: '/micro2',
+    meta: {
+      title: '子应用React',
+      icon: 'setting',
+      hidden: false,
+    },
+    children: [
+      {
+        key: 'micro2-home',
+        name: 'home',
+        path: '/micro2/home',
+        meta: {
+          title: '主页',
+          icon: '',
+          hidden: false,
+        },
+      },
+      {
+        key: 'micro2-about',
+        name: 'about',
+        path: '/micro2/about',
+        meta: {
+          title: '关于',
+          icon: '',
+          hidden: false,
+        },
+      },
+      {
+        key: 'micro2-form',
+        name: 'form',
+        path: '/micro2/form',
+        meta: {
+          title: '表单',
+          icon: '',
+          hidden: false,
+        },
+        children: [
+          {
+            key: 'micro2-mixForm',
+            name: 'mixForm',
+            path: '/micro2/form/mixForm',
+            meta: {
+              title: '多表单',
+              icon: '',
+              hidden: false,
+            },
+          },
+          {
+            key: 'micro2-reactHookForm',
+            name: 'reactHookForm',
+            path: '/micro2/form/reactHookForm',
+            meta: {
+              title: 'reactHookForm',
+              icon: '',
+              hidden: false,
+            },
+          },
+        ],
+      },
+    ],
+  },
+]
 
 export const menuData: Array<MenuDataItem> = [
   {
@@ -113,4 +224,6 @@ export const menuData: Array<MenuDataItem> = [
       },
     ],
   },
+  ...microVueMenus,
+  ...microReactMenus,
 ]

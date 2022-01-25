@@ -22,7 +22,13 @@
             </transition>
           </router-view> -->
 
-          <router-view></router-view>
+          <!-- <router-view></router-view> -->
+
+          <!-- 主应用渲染区，用于挂载主应用路由触发的组件 -->
+          <router-view v-show="currentRoute.name" />
+
+          <!-- 子应用渲染区，用于挂载子应用节点 -->
+          <section v-show="!currentRoute.name" id="frame"></section>
         </a-card>
       </a-layout-content>
     </a-layout>
@@ -31,6 +37,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import ComHeaderBar from './components/HeaderBar/index.vue'
 import ComPageBreadCrub from './components/PageBreadcrumb/index.vue'
@@ -41,9 +48,17 @@ import { menuData } from './constants'
 const collapsed = ref<boolean>(false)
 const menusData = ref(menuData)
 
+const currentRoute = useRoute()
+
 const toggleCollapsed = () => {
   collapsed.value = !collapsed.value
 }
+
+watchEffect(() => {
+  if (currentRoute) {
+    console.log('currentRoute: ', currentRoute, currentRoute.name)
+  }
+})
 </script>
 
 <style>

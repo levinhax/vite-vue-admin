@@ -1,10 +1,16 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
+
+import BasicLayout from './layouts/index.vue'
+import { useRoute } from 'vue-router'
+
+const currentRoute = useRoute()
 </script>
 
 <template>
-  <router-view />
+  <BasicLayout v-if="currentRoute.path !== '/login'"></BasicLayout>
+  <router-view v-else />
 </template>
 
 <style>
