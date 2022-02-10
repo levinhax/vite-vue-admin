@@ -63,6 +63,7 @@ export const breadcrumbNameMap: any = {
   '/micro2/home': '首页',
   '/micro2/about': '关于',
   '/micro2/form': '表单',
+  '/micro2/form/basic': '基础表单',
   '/micro2/form/mixForm': '多表单',
   '/micro2/form/reactHookForm': 'reactHookForm',
 }
@@ -143,6 +144,16 @@ export const microReactMenus: Array<MenuDataItem> = [
           hidden: false,
         },
         children: [
+          {
+            key: 'micro2-basicForm',
+            name: 'basicForm',
+            path: '/micro2/form/basic',
+            meta: {
+              title: '基础表单',
+              icon: '',
+              hidden: false,
+            },
+          },
           {
             key: 'micro2-mixForm',
             name: 'mixForm',
