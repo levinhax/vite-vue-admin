@@ -15,7 +15,12 @@ async function startApp() {
   } finally {
     // 启动应用
     startQiankun()
-    createApp(App).use(router).mount('#main-app')
+    const app = createApp(App)
+
+    // 设置全局属性
+    app.config.globalProperties.$abc = 'global-abc'
+
+    app.use(router).mount('#main-app')
   }
 }
 
