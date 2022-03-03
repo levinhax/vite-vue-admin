@@ -31,6 +31,21 @@ const routes: Array<RouteRecordRaw> = [
       auth: ['admin'],
     },
   },
+  {
+    path: '/other/file',
+    name: 'otherFile',
+    redirect: '/other/file/print',
+  },
+  {
+    path: '/other/file/print',
+    name: 'otherFilePrint',
+    component: () => import('@/views/Other/File/Print/index.vue'),
+    meta: {
+      title: '打印',
+      icon: '',
+      auth: ['admin'],
+    },
+  },
 ]
 
 export default routes
