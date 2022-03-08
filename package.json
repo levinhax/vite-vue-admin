@@ -9,7 +9,8 @@
     "lint:format": "prettier --loglevel warn --write \"./**/*.{js,jsx,ts,tsx,vue,css,md,json}\" ",
     "lint": "npm run lint:format && npm run lint:fix ",
     "prepare": "husky install",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "plop": "plop"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,js,jsx,vue}": [
@@ -42,6 +43,7 @@
     "husky": "^7.0.0",
     "less": "^4.1.2",
     "lint-staged": "^12.1.7",
+    "plop": "^3.0.5",
     "prettier": "^2.5.1",
     "typescript": "^4.4.4",
     "unplugin-auto-import": "^0.5.9",

@@ -28,5 +28,6 @@ module.exports = {
       }],
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-non-null-assertion': 0, //允许用断言
+      '@typescript-eslint/no-var-requires': 'off',
     },
 }

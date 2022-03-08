@@ -1,0 +1,15 @@
+<script setup lang="ts" {{#if isGlobal}} name="{{ properCase name }}" {{/if}}>
+// const { proxy } = getCurrentInstance()
+// const router = useRouter()
+// const route = useRoute()
+</script>
+
+<template>
+  <div class="{{lowerCase name}}-component-wrap">
+    <h1>{{upperCase name}} 基础组件</h1>
+  </div>
+</template>
+
+<style lang="less" scoped>
+@import './index.less';
+</style>
