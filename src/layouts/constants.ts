@@ -57,6 +57,7 @@ export const breadcrumbNameMap: any = {
   '/other/animation': '动画',
   '/other/animation/banner': '轮播',
   '/other/file/print': '打印',
+  '/otherTest': '测试',
   '/micro1': 'Vue子应用',
   '/micro1/home': '首页',
   '/micro1/about': '关于',
@@ -255,6 +256,17 @@ export const menuData: Array<MenuDataItem> = [
             },
           },
         ],
+      },
+
+      {
+        key: '2-99',
+        name: 'otherTest',
+        path: '/otherTest',
+        meta: {
+          title: '测试',
+          icon: '',
+          hidden: false,
+        },
       },
     ],
   },

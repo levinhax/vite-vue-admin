@@ -46,6 +46,11 @@ const routes: Array<RouteRecordRaw> = [
       auth: ['admin'],
     },
   },
+  {
+    path: '/otherTest',
+    name: 'otherTest',
+    component: () => import('@/views/Other/Test/index.vue'),
+  },
 ]
 
 export default routes
