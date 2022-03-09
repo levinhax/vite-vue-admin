@@ -53,7 +53,11 @@ export default defineConfig({
   },
   resolve: {
 		alias: {
-			'@': resolve('src')
+			'@': resolve('src'),
+      "@Views": resolve("src/views"),
+      "@Utils": resolve("src/utils"),
+      "@Store": resolve("src/store"),
+      "@Com": resolve("src/components"),
 		}
 	}
 })

@@ -3,6 +3,7 @@ import startQiankun from './micro'
 import { createApp } from 'vue'
 import App from './App.vue'
 import { router } from './router'
+import piniaStore from './store'
 import 'virtual:svg-icons-register'
 
 // createApp(App).use(router).mount('#main-app')
@@ -20,7 +21,7 @@ async function startApp() {
     // 设置全局属性
     app.config.globalProperties.$abc = 'global-abc'
 
-    app.use(router).mount('#main-app')
+    app.use(router).use(piniaStore).mount('#main-app')
   }
 }
 
