@@ -7,6 +7,7 @@ import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import viteSvgIcons from 'vite-plugin-svg-icons'
+import Pages from 'vite-plugin-pages'
 
 const resolve = dir => path.resolve(process.cwd(), dir)
 
@@ -27,6 +28,22 @@ export default defineConfig({
       iconDirs: [resolve('src/assets/icons')],
       // 指定symbolId格式
       symbolId: 'icon-[dir]-[name]',
+    }),
+    Pages({
+      dirs: [
+        { dir: 'src/views', baseRoute: '' },
+      ],
+      // extendRoute(route, parent) {
+      //   // if (route.path === "/") {
+      //     // return route;
+      //   // }
+      //   // Augment the route with meta that indicates that the route requires authentication.
+      //   // return {
+      //     // ...route,
+      //     // meta: { auth: true },
+      //   // };
+      // },
+      exclude: ['**/components/*.vue'],
     }),
   ],
   server: {

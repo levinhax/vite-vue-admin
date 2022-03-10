@@ -24,6 +24,9 @@ router.beforeEach(async (to: RouteLocationNormalized, _, next) => {
       // 是否获取过用户信息
       const isGetUserInfo = true
       if (isGetUserInfo) {
+        // if (to.path === '/') {
+        //   next({ path: '/home' })
+        // }
         next()
       } else {
         // 没有获取，请求数据

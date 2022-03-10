@@ -1,3 +1,13 @@
+<route>
+{
+  name: "home-page",
+  meta: {
+    requiresAuth: false,
+    title: '首页',
+  }
+}
+</route>
+
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import useCurrentInstance from '../../hooks/useCurrentInstance'

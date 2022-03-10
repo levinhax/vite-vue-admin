@@ -6,6 +6,8 @@ import { router } from './router'
 import piniaStore from './store'
 import 'virtual:svg-icons-register'
 
+import './router/permission'
+
 // createApp(App).use(router).mount('#main-app')
 
 async function startApp() {

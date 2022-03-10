@@ -47,7 +47,7 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: '/otherTest',
+    path: '/otherTest', // 同时支持配置式路由与约定式路由, 访问地址 /otherTest 或 /other/test
     name: 'otherTest',
     component: () => import('@/views/Other/Test/index.vue'),
   },
