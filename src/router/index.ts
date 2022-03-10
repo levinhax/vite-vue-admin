@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 // import routes from '~pages' // 约定式路由
 
+// 如果没有 routes 配置，Umi 会进入约定式路由模式，然后分析 src/views 目录拿到路由配置。
 import routes1 from './routes'
 import routes2 from '~pages' // 约定式路由
 
