@@ -8,6 +8,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import viteSvgIcons from 'vite-plugin-svg-icons'
 import Pages from 'vite-plugin-pages'
+import { configManualChunk } from './config/vite/optimizer'
 
 const resolve = dir => path.resolve(process.cwd(), dir)
 
@@ -76,5 +77,26 @@ export default defineConfig({
       "@Store": resolve("src/store"),
       "@Com": resolve("src/components"),
 		}
-	}
+	},
+  build: {
+    rollupOptions: {
+      // 确保外部化处理那些你不想打包进库的依赖
+      // external: ['vue'],
+      output: {
+        // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
+        // globals: {
+        //   vue: 'Vue'
+        // },
+
+        // chunkFileNames: 'assets/chunkjs/[name]-[hash].js',
+        // entryFileNames: 'assets/entryjs/[name]-[hash].js',
+        // assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+
+        manualChunks: configManualChunk, // 手动拆分代码
+      },
+    },
+    // Turning off brotliSize display can slightly reduce packaging time
+    brotliSize: false,
+    chunkSizeWarningLimit: 1500, // chunk 大小警告的限制（以 kbs 为单位），默认500
+  }
 })
