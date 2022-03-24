@@ -20,6 +20,10 @@ const handleUpdateUser = () => {
     <div>
       <a-button type="primary" @click="handleUpdateUser"> 更新user store </a-button>
     </div>
+    <a-divider orientation="left">全局组件</a-divider>
+    <div>
+      <com-search-bar></com-search-bar>
+    </div>
   </div>
 </template>
 

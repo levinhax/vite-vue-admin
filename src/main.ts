@@ -5,6 +5,7 @@ import App from './App.vue'
 import { router } from './router'
 import piniaStore from './store'
 import 'virtual:svg-icons-register'
+import GlobalComponents from './components'
 
 import './router/permission'
 
@@ -23,7 +24,7 @@ async function startApp() {
     // 设置全局属性
     app.config.globalProperties.$abc = 'global-abc'
 
-    app.use(router).use(piniaStore).mount('#main-app')
+    app.use(GlobalComponents).use(router).use(piniaStore).mount('#main-app')
   }
 }
 
