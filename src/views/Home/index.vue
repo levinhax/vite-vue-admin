@@ -12,6 +12,7 @@
 import { storeToRefs } from 'pinia'
 import useCurrentInstance from '../../hooks/useCurrentInstance'
 import { useUserStore } from '../../store/modules/user'
+import MyWorker from './worker?worker'
 
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
@@ -36,6 +37,10 @@ watch(
     deep: true,
   }
 )
+
+const worker = new MyWorker()
+worker.onmessage = e => console.log(`Main: Received message - ${e.data}`)
+worker.postMessage('Home Main')
 </script>
 
 <template>
