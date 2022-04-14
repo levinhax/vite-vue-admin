@@ -11,6 +11,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import useCurrentInstance from '../../hooks/useCurrentInstance'
+import useClickOutside from '@/hooks/useIsClickOutside'
 import { useUserStore } from '../../store/modules/user'
 import MyWorker from './worker?worker'
 
@@ -26,6 +27,12 @@ console.log('全局属性: ', proxy, proxy.$abc)
 const userStore = useUserStore()
 const { info } = storeToRefs(userStore)
 console.log('测试 user store: ', info)
+
+const nodeRef = ref<HTMLElement | null>(null)
+const isClickOutside = useClickOutside(nodeRef)
+watch(isClickOutside, () => {
+  console.log('watch isClickOutside: ', isClickOutside.value)
+})
 
 watch(
   () => userStore.info,
@@ -47,6 +54,9 @@ worker.postMessage('Home Main')
   <div class="home-wrapper">
     <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
     <SvgIcon name="dataAssets" size="default" color="#f00" />
+    <div ref="nodeRef" style="width: 320px; height: 80px; border: 1px dotted #ccc; line-height: 80px">
+      试试点击我和之外的区域！
+    </div>
   </div>
 </template>
 
