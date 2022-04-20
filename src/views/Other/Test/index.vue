@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useMouse, useDebounceFn, useThrottleFn } from '@vueuse/core'
+import { v4 as uuidv4 } from 'uuid'
 import { useUserStore } from '../../../store/modules/user'
 
 const userStore = useUserStore()
-const message = ref('hello levin')
+const messageStr = ref('hello levin')
+const uuidStr = ref<string>('')
 
 const handleUpdateUser = () => {
   console.log('handleUpdateUser')
@@ -12,6 +14,11 @@ const handleUpdateUser = () => {
     userName: 'sysAdmin',
     phone: '13909878899',
   })
+}
+
+const handleUpdateUUID = () => {
+  uuidStr.value = uuidv4()
+  console.log('uuidStr: ', uuidStr.value)
 }
 
 // tracks mouse position
@@ -44,10 +51,11 @@ const clickedFn2 = () => {
 
 <template>
   <div class="test-wrapper">
-    {{ message }}
+    {{ messageStr }}
     <a-divider orientation="left">函数</a-divider>
     <div>
-      <a-button type="primary" @click="handleUpdateUser"> 更新user store </a-button>
+      <a-button type="primary" style="margin-right: 32px" @click="handleUpdateUser"> 更新user store </a-button>
+      <a-button type="primary" @click="handleUpdateUUID"> 更新uuid </a-button>
     </div>
     <a-divider orientation="left">全局组件</a-divider>
     <div>
