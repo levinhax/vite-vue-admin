@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import { useMouse, useDebounceFn, useThrottleFn } from '@vueuse/core'
 import { v4 as uuidv4 } from 'uuid'
+// import { message } from 'ant-design-vue'
+// import 'ant-design-vue/es/message/style/css'
 import { useUserStore } from '../../../store/modules/user'
+import useCurrentInstance from '@/hooks/useCurrentInstance'
 
 const userStore = useUserStore()
 const messageStr = ref('hello levin')
 const uuidStr = ref<string>('')
+
+const { proxy } = useCurrentInstance()
 
 const handleUpdateUser = () => {
   console.log('handleUpdateUser')
@@ -18,7 +23,7 @@ const handleUpdateUser = () => {
 
 const handleUpdateUUID = () => {
   uuidStr.value = uuidv4()
-  console.log('uuidStr: ', uuidStr.value)
+  proxy.$message.info(`uuid: ${uuidStr.value}`)
 }
 
 // tracks mouse position

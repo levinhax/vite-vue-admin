@@ -9,6 +9,10 @@ import GlobalComponents from './components'
 
 import './router/permission'
 
+// unplugin-vue-components can only deal with components. Others such as message should be loaded manually:
+import { message } from 'ant-design-vue'
+import 'ant-design-vue/es/message/style/css'
+
 // createApp(App).use(router).mount('#main-app')
 
 async function startApp() {
@@ -23,6 +27,8 @@ async function startApp() {
 
     // 设置全局属性
     app.config.globalProperties.$abc = 'global-abc'
+
+    app.config.globalProperties.$message = message
 
     app.use(GlobalComponents).use(router).use(piniaStore).mount('#main-app')
   }
