@@ -215,6 +215,16 @@ export const menuData: Array<MenuDataItem> = [
       },
       {
         key: '2-2',
+        name: 'otherForm',
+        path: '/other/form',
+        meta: {
+          title: '表单',
+          icon: '',
+          hidden: false,
+        },
+      },
+      {
+        key: '2-3',
         name: 'otherAnimation',
         path: '/other/animation',
         meta: {
@@ -224,7 +234,7 @@ export const menuData: Array<MenuDataItem> = [
         },
         children: [
           {
-            key: '2-2-1',
+            key: '2-3-1',
             name: 'otherAnimationBanner',
             path: '/other/animation/banner',
             meta: {
@@ -236,7 +246,7 @@ export const menuData: Array<MenuDataItem> = [
         ],
       },
       {
-        key: '2-3',
+        key: '2-4',
         name: 'otherFile',
         path: '/other/file',
         meta: {
@@ -246,7 +256,7 @@ export const menuData: Array<MenuDataItem> = [
         },
         children: [
           {
-            key: '2-2-1',
+            key: '2-4-1',
             name: 'otherFilePrint',
             path: '/other/file/print',
             meta: {
