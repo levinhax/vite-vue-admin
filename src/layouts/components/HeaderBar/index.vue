@@ -8,7 +8,11 @@
     </div>
     <div class="header-right">
       <ComPageBreadCrub />
-      <HeaderRight />
+      <div class="header-right-content">
+        <span style="color: var(--ant-primary-color)">var(`--ant-primary-color`)</span>
+        <ThemeChange style="margin-right: 12px" />
+        <HeaderRight />
+      </div>
     </div>
   </div>
 </template>
@@ -16,6 +20,7 @@
 <script setup lang="ts">
 import ComPageBreadCrub from '../PageBreadcrumb/index.vue'
 import HeaderRight from '../HeaderRight/index.vue'
+import ThemeChange from '../ThemeChange/index.vue'
 
 import logo from '@/assets/logo.png'
 import Config from '../../../config'

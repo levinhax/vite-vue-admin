@@ -9,8 +9,10 @@ const currentRoute = useRoute()
 </script>
 
 <template>
-  <BasicLayout v-if="currentRoute.path !== '/login'"></BasicLayout>
-  <router-view v-else />
+  <a-config-provider prefix-cls="ant">
+    <BasicLayout v-if="currentRoute.path !== '/login'"></BasicLayout>
+    <router-view v-else />
+  </a-config-provider>
 </template>
 
 <style>

@@ -12,6 +12,7 @@ import './router/permission'
 // unplugin-vue-components can only deal with components. Others such as message should be loaded manually:
 import { message } from 'ant-design-vue'
 import 'ant-design-vue/es/message/style/css'
+// import 'ant-design-vue/dist/antd.variable.min.css'
 
 // createApp(App).use(router).mount('#main-app')
 
