@@ -27,6 +27,10 @@ declare module 'vue' {
     ATable: typeof import('ant-design-vue/es')['Table']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
+    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    MyIcon: typeof import('./src/components/MyIcon/index.vue')['default']
+    SearchBar: typeof import('./src/components/SearchBar/index.vue')['default']
+    SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
   }
 }
 

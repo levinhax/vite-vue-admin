@@ -2,8 +2,8 @@ import path from 'path'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-// import Components from 'unplugin-vue-components/vite'
-// import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import viteSvgIcons from 'vite-plugin-svg-icons'
@@ -16,9 +16,9 @@ const resolve = dir => path.resolve(process.cwd(), dir)
 export default defineConfig({
   plugins: [
     vue(),
-    // Components({
-    //   resolvers: [AntDesignVueResolver()],
-    // }),
+    Components({
+      resolvers: [AntDesignVueResolver()],
+    }),
     AutoImport({
       imports: ['vue', 'vue-router'],
       dts: 'src/auto-imports.d.ts',
