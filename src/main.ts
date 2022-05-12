@@ -9,10 +9,13 @@ import GlobalComponents from './components'
 
 import './router/permission'
 
+import Antd from 'ant-design-vue'
+// import 'ant-design-vue/dist/antd.css'
+import 'ant-design-vue/dist/antd.variable.min.css'
+
 // unplugin-vue-components can only deal with components. Others such as message should be loaded manually:
 import { message } from 'ant-design-vue'
-import 'ant-design-vue/es/message/style/css'
-// import 'ant-design-vue/dist/antd.variable.min.css'
+// import 'ant-design-vue/es/message/style/css' // vite只能用 ant-design-vue/es 而非 ant-design-vue/lib
 
 // createApp(App).use(router).mount('#main-app')
 
@@ -31,7 +34,7 @@ async function startApp() {
 
     app.config.globalProperties.$message = message
 
-    app.use(GlobalComponents).use(router).use(piniaStore).mount('#main-app')
+    app.use(Antd).use(GlobalComponents).use(router).use(piniaStore).mount('#main-app')
   }
 }
 

@@ -8,6 +8,8 @@ const count = ref(0)
 
 <template>
   <h1>{{ msg }}</h1>
+  <a-button type="primary">AntV Button</a-button>
+  <span style="color: var(--ant-primary-color)">var(`--ant-primary-color`)</span>
 
   <p>
     Recommended IDE setup:
