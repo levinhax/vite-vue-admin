@@ -8,3 +8,4 @@
 - VueUse
 - Web Worker
 - 动态切换主题
+- 编辑器
