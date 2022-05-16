@@ -57,6 +57,8 @@ export const breadcrumbNameMap: any = {
   '/other/animation': '动画',
   '/other/animation/banner': '轮播',
   '/other/file/print': '打印',
+  '/other/Edit': '编辑器',
+  '/other/Edit/wangEditor': 'wangEditor',
   '/other/test': '测试',
   '/micro1': 'Vue子应用',
   '/micro1/home': '首页',
@@ -261,6 +263,28 @@ export const menuData: Array<MenuDataItem> = [
             path: '/other/file/print',
             meta: {
               title: '打印',
+              icon: '',
+              hidden: false,
+            },
+          },
+        ],
+      },
+      {
+        key: '2-5',
+        name: 'otherEdit',
+        path: '/other/Edit',
+        meta: {
+          title: '编辑器',
+          icon: '',
+          hidden: false,
+        },
+        children: [
+          {
+            key: '2-5-1',
+            name: 'otherWangEditor',
+            path: '/other/Edit/wangEditor',
+            meta: {
+              title: 'wangEditor',
               icon: '',
               hidden: false,
             },

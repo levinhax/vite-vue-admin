@@ -9,7 +9,6 @@
     <div class="header-right">
       <ComPageBreadCrub />
       <div class="header-right-content">
-        <span style="color: var(--ant-primary-color)">var(`--ant-primary-color`)</span>
         <ThemeChange style="margin-right: 12px" />
         <HeaderRight />
       </div>
