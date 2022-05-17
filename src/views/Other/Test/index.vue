@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 // import 'ant-design-vue/es/message/style/css'
 import { useUserStore } from '../../../store/modules/user'
 import useCurrentInstance from '@/hooks/useCurrentInstance'
+import math from '@/utils/math'
 
 const userStore = useUserStore()
 const messageStr = ref('hello levin')
@@ -52,6 +53,19 @@ const clickedFn2 = () => {
   clicked2.value += 1
   throttledFn()
 }
+
+// mathjs 计算
+const addNum = ref<number>(0)
+const subNum = ref<number>(0)
+const mulNum = ref<number>(0)
+const divNum = ref<number>(0)
+
+onMounted(() => {
+  addNum.value = Number(math.add(0.1, 0.2))
+  subNum.value = Number(math.subtract(0.3, 0.2))
+  mulNum.value = Number(math.multiply(0.3, 3))
+  divNum.value = Number(math.divide(0.3, 0.1))
+})
 </script>
 
 <template>
@@ -66,25 +80,40 @@ const clickedFn2 = () => {
     <div>
       <com-search-bar></com-search-bar>
     </div>
-    <a-divider orientation="left">VueUse</a-divider>
-    <div>
-      <div>useMouse pos: {{ x }}, {{ y }}</div>
-      <div>
-        <a-button @click="clickedFn1">Smash me! (防抖)</a-button>
-        <span>Delay is set to 1000ms and maxWait is set to 5000ms for this demo.</span>
 
-        <p>Button clicked: {{ clicked1 }}</p>
-        <p>Event handler called: {{ updated1 }}</p>
-      </div>
+    <!-- 工具库 -->
+    <a-row :gutter="32">
+      <a-col :span="12">
+        <a-divider orientation="left">VueUse</a-divider>
+        <div>
+          <div>useMouse pos: {{ x }}, {{ y }}</div>
+          <div>
+            <a-button @click="clickedFn1">Smash me! (防抖)</a-button>
+            <span>Delay is set to 1000ms and maxWait is set to 5000ms for this demo.</span>
 
-      <div>
-        <a-button @click="clickedFn2"> Smash me! (节流)</a-button>
-        <span>Delay is set to 1000ms for this demo.</span>
+            <p>Button clicked: {{ clicked1 }}</p>
+            <p>Event handler called: {{ updated1 }}</p>
+          </div>
 
-        <p>Button clicked: {{ clicked2 }}</p>
-        <p>Event handler called: {{ updated2 }}</p>
-      </div>
-    </div>
+          <div>
+            <a-button @click="clickedFn2"> Smash me! (节流)</a-button>
+            <span>Delay is set to 1000ms for this demo.</span>
+
+            <p>Button clicked: {{ clicked2 }}</p>
+            <p>Event handler called: {{ updated2 }}</p>
+          </div>
+        </div>
+      </a-col>
+      <a-col :span="12">
+        <a-divider orientation="left">mathjs</a-divider>
+        <div>
+          <p>0.1 + 0.2 = {{ addNum }}</p>
+          <p>0.3 - 0.2 = {{ subNum }}</p>
+          <p>0.3 * 3 = {{ mulNum }}</p>
+          <p>0.3 / 0.1 = {{ divNum }}</p>
+        </div>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
