@@ -267,6 +267,16 @@ export const menuData: Array<MenuDataItem> = [
               hidden: false,
             },
           },
+          {
+            key: '2-4-2',
+            name: 'otherFileWaterMark',
+            path: '/other/file/watermark',
+            meta: {
+              title: '水印',
+              icon: '',
+              hidden: false,
+            },
+          },
         ],
       },
       {
