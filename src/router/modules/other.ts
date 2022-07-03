@@ -57,6 +57,16 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: '/other/file/preview',
+    name: 'otherFilePreview',
+    component: () => import('@/views/Other/File/Preview/index.vue'),
+    meta: {
+      title: '预览',
+      icon: '',
+      auth: ['admin'],
+    },
+  },
+  {
     path: '/otherTest', // 同时支持配置式路由与约定式路由, 访问地址 /otherTest 或 /other/test
     name: 'otherTest',
     component: () => import('@/views/Other/Test/index.vue'),

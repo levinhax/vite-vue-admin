@@ -277,6 +277,16 @@ export const menuData: Array<MenuDataItem> = [
               hidden: false,
             },
           },
+          {
+            key: '2-4-3',
+            name: 'otherFilePreview',
+            path: '/other/file/preview',
+            meta: {
+              title: '预览',
+              icon: '',
+              hidden: false,
+            },
+          },
         ],
       },
       {

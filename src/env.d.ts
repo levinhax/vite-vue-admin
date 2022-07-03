@@ -9,3 +9,4 @@ declare module '*.vue' {
 }
 
 declare module 'ant-design-vue'
+declare module 'pdfjs-dist/legacy/build/pdf.worker.entry.js'
