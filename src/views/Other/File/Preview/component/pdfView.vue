@@ -1,5 +1,11 @@
 <template>
   <div class="pdf-view">
+    <div class="pdf-control">
+      <a-button @click="handlePrev">上一页</a-button>
+      <a-button @click="handleNext">下一页</a-button>
+      <a-button @click="handleScaleD">放大</a-button>
+      <a-button @click="handleScaleX">缩小</a-button>
+    </div>
     <!-- <div class="pdf-container"> -->
     <div
       class="pdf-container"
@@ -29,6 +35,15 @@ import { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api'
 // pdfJs.GlobalWorkerOptions.workerSrc = require('pdfjs-dist/legacy/build/pdf.worker.entry.js')
 pdfJs.GlobalWorkerOptions.workerSrc = pdfJsWorkerSrc
 
+interface Iprops {
+  pdfDoc: any
+  pdfPageNum: number
+  pdfPagesTotal: number
+  pdfWidth: string
+  pdfHeight: string
+  pdfScale: number
+}
+
 // defineProps<{ pdfUrl: string }>()
 
 const props = defineProps({
@@ -39,7 +54,7 @@ const props = defineProps({
   },
 })
 
-const state = reactive({
+const state: Iprops = reactive({
   pdfDoc: '', // pdfjs 生成的对象
   pdfPageNum: 1, // 当前页数
   pdfPagesTotal: 0, // 总页数
@@ -55,7 +70,7 @@ const renderPdf = (url: any) => {
     // console.log('pdfDoc: ', pdfDoc._pdfInfo.numPages)
     // pdfPages.value = pdfDoc._pdfInfo.numPages
 
-    // state.pdfDoc = pdfDoc
+    state.pdfDoc = pdfDoc
     state.pdfPagesTotal = pdfDoc._pdfInfo.numPages
 
     nextTick(() => {
@@ -107,11 +122,61 @@ const renderPage = async (num = 1, pdfDoc: PDFDocumentProxy) => {
     viewport,
     transform: [ratio, 0, 0, ratio, 0, 0],
   })
-  // if (state.pdfPagesTotal > num) {
-  //   renderPage(num + 1, pdfDoc)
-  // }
+  if (state.pdfPagesTotal > num) {
+    renderPage(num + 1, pdfDoc)
+  }
   return renderTask.promise
 }
+
+const handlePrev = () => {
+  console.log('上一页')
+  if (state.pdfPageNum > 1) {
+    renderPage(state.pdfPageNum - 1, state.pdfDoc)
+  }
+}
+
+const handleNext = () => {
+  console.log('下一页')
+  if (state.pdfPagesTotal > state.pdfPageNum) {
+    renderPage(state.pdfPageNum + 1, state.pdfDoc)
+  }
+}
+
+const handleScaleD = () => {
+  console.log('放大')
+  let max = 0
+  if (window.screen.width > 1440) {
+    max = 1.6
+  } else {
+    max = 1.2
+  }
+  if (state.pdfScale >= max) {
+    return
+  }
+  state.pdfScale = state.pdfScale + 0.1
+  renderPdf(pdfFile)
+}
+
+const handleScaleX = () => {
+  console.log('缩小')
+  let min = 1.0
+  if (state.pdfScale <= min) {
+    return
+  }
+  state.pdfScale = state.pdfScale - 0.1
+  renderPdf(pdfFile)
+}
+
+// const getFile = async () => {
+//   const params = {}
+//   getDatareportData(params).then(res => {
+//     console.log('调用生成数据报告接口返回数据', res)
+//     const binaryData = []
+//     binaryData.push(res)
+//     state.pdfUrl = window.URL.createObjectURL(new Blob(binaryData, { type: 'application/pdf' }))
+//     // window.open(this.pdfUrl);
+//   })
+// }
 
 onMounted(() => {
   console.log('onMounted')
