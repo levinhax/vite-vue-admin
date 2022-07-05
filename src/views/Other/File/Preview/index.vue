@@ -42,14 +42,14 @@ const beforeUpload = async (file: any) => {
   uploadFile.value = arrayBuffer
   fileList.value = []
 
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
-  if (!isJpgOrPng) {
-    proxy.$message.error('You can only upload JPG file!')
-  }
-  const isLt2M = file.size / 1024 / 1024 < 20
-  if (!isLt2M) {
-    proxy.$message.error('Image must smaller than 20MB!')
-  }
+  // const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
+  // if (!isJpgOrPng) {
+  //   proxy.$message.error('You can only upload JPG file!')
+  // }
+  // const isLt2M = file.size / 1024 / 1024 < 20
+  // if (!isLt2M) {
+  //   proxy.$message.error('Image must smaller than 20MB!')
+  // }
   // return isJpgOrPng && isLt2M
   return false
 }

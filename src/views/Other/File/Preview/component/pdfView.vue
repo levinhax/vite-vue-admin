@@ -1,8 +1,17 @@
 <template>
   <div class="pdf-view">
-    <div class="pdf-container">
+    <!-- <div class="pdf-container"> -->
+    <div
+      class="pdf-container"
+      :style="{
+        width: state.pdfWidth,
+        height: state.pdfHeight,
+        border: '1px solid green',
+      }"
+    >
       <!-- <canvas id="pdfCanvas" ref="refPdfCanvas"></canvas> -->
-      <canvas v-for="page in pdfPages" :id="'pdfCanvas' + page" :key="page"></canvas>
+      <!-- v-show="state.pdfPageNum === page" -->
+      <canvas v-for="page in state.pdfPagesTotal" :id="`pdfCanvas${page}`" :key="page"></canvas>
     </div>
   </div>
 </template>
@@ -26,72 +35,32 @@ const props = defineProps({
   pdfUrl: {
     type: Object,
     required: false,
+    default: null,
   },
 })
 
-const refPdfCanvas = ref(null)
-const loadingPdf = ref<boolean>(false)
-const pdfUrl = ref<string>('') // pdf的base64
-const pdfDoc = ref<any>(null) // pdfjs 生成的对象
-const pdfPageNum = ref<number>(0) // 当前页数
-const pdfPages = ref<number>(0)
-const pdfScale = ref(1)
-
-// const renderPage = (num: number, pdfDoc: any) => {
-//   pdfDoc.getPage(num).then(function (pdfPage: any) {
-//     const viewport = pdfPage.getViewport(2.0)
-//     let canvas: any = toRaw(refPdfCanvas.value)
-//     const ctx = canvas.getContext('2d')
-//     canvas.width = viewport.width
-//     canvas.height = viewport.height
-
-//     const renderTask = pdfPage.render({
-//       canvasContext: ctx,
-//       viewport,
-//     })
-//     return renderTask.promise
-//   })
-// }
+const state = reactive({
+  pdfDoc: '', // pdfjs 生成的对象
+  pdfPageNum: 1, // 当前页数
+  pdfPagesTotal: 0, // 总页数
+  pdfWidth: '', // 宽度
+  pdfHeight: '',
+  pdfScale: 1, // 放大倍数
+})
 
 const renderPdf = (url: any) => {
   console.log('renderPdf url: ', url)
   // data是一个ArrayBuffer格式，也是一个buffer流的数据
   pdfJs.getDocument(url).promise.then(pdfDoc => {
     // console.log('pdfDoc: ', pdfDoc._pdfInfo.numPages)
-    pdfPages.value = pdfDoc._pdfInfo.numPages
-    // return pdfDoc.getPage(1).then(function (pdfPage) {
-    //   let canvas: any = toRaw(refPdfCanvas.value)
-    //   if (canvas == null) return
-    //   const ctx = canvas.getContext('2d')
-    //   // Display page on the existing canvas with 100% scale.
+    // pdfPages.value = pdfDoc._pdfInfo.numPages
 
-    //   const dpr = window.devicePixelRatio || 1
-    //   const bsr =
-    //     ctx.webkitBackingStorePixelRatio ||
-    //     ctx.mozBackingStorePixelRatio ||
-    //     ctx.msBackingStorePixelRatio ||
-    //     ctx.oBackingStorePixelRatio ||
-    //     ctx.backingStorePixelRatio ||
-    //     1
-    //   const ratio = dpr / bsr
+    // state.pdfDoc = pdfDoc
+    state.pdfPagesTotal = pdfDoc._pdfInfo.numPages
 
-    //   const viewport = pdfPage.getViewport({ scale: pdfScale.value * 2 })
-    //   canvas.width = viewport.width * ratio
-    //   canvas.height = viewport.height * ratio
-    //   canvas.style.width = viewport.width + 'px'
-    //   canvas.style.height = viewport.height + 'px'
-    //   console.log('viewport: ', viewport)
-    //   ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    //   const renderTask = pdfPage.render({
-    //     canvasContext: ctx,
-    //     viewport,
-    //   })
-    //   return renderTask.promise
-    // })
-
-    for (let num = 1; num <= pdfPages.value; num++) {
-      renderPage(num, pdfDoc)
-    }
+    nextTick(() => {
+      renderPage(1, pdfDoc)
+    })
   })
 }
 
@@ -99,9 +68,11 @@ const renderPdf = (url: any) => {
 
 const renderPage = async (num = 1, pdfDoc: PDFDocumentProxy) => {
   //渲染pdf页
-  console.log('渲染pdf页')
+  console.log('渲染pdf页: ', num)
+  state.pdfPageNum = num
   const pdfPageRender = await pdfDoc.getPage(num)
-  let canvas: any = toRaw(refPdfCanvas.value)
+  // let canvas: any = toRaw(refPdfCanvas.value)
+  let canvas: any = document.getElementById('pdfCanvas' + num)
   if (canvas == null) return
   const ctx = canvas.getContext('2d')
 
@@ -114,38 +85,37 @@ const renderPage = async (num = 1, pdfDoc: PDFDocumentProxy) => {
     ctx.backingStorePixelRatio ||
     1
   const ratio = dpr / bsr
-
-  const viewport = pdfPageRender.getViewport({ scale: pdfScale.value * 2 })
+  const viewport = pdfPageRender.getViewport({ scale: state.pdfScale * 1 })
   canvas.width = viewport.width * ratio
   canvas.height = viewport.height * ratio
   canvas.style.width = viewport.width + 'px'
-  canvas.style.height = viewport.height + 'px'
-  console.log('viewport: ', viewport)
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+  // canvas.style.height = viewport.height + 'px'
+  // canvas.style.width = '100%'
+  // canvas.style.height = '100%'
+  console.log('canvas: ', canvas.width, canvas.height, canvas.style.width, canvas.style.height)
+  state.pdfWidth = viewport.width + 20 + 'px'
+  state.pdfHeight = viewport.height + 'px'
+  // console.log('viewport: ', viewport)
+  console.log('radio, dpr: ', ratio, dpr)
+
+  // ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+  // ctx.setTransform(ratio, 0, 0, ratio, 0, 0)
+
+  // 将 PDF 页面渲染到 canvas 上下文中
   const renderTask = pdfPageRender.render({
     canvasContext: ctx,
     viewport,
+    transform: [ratio, 0, 0, ratio, 0, 0],
   })
+  // if (state.pdfPagesTotal > num) {
+  //   renderPage(num + 1, pdfDoc)
+  // }
   return renderTask.promise
-}
-
-const loadFile = async (url: any) => {
-  //初始化pdf
-  console.log('初始化pdf')
-  console.log(url)
-  pdfDoc.value = await pdfJs.getDocument(url).promise
-  pdfPages.value = pdfDoc.value.numPages
-  // renderPage(1, pdfDoc)
 }
 
 onMounted(() => {
   console.log('onMounted')
   renderPdf(pdfFile)
-  pdfJs.getDocument(pdfFile).promise.then(pdfDoc => {
-    console.log('pdfDoc: ', pdfDoc._pdfInfo)
-    pdfPages.value = 10
-    renderPage(1, pdfDoc)
-  })
 })
 
 watch(props, (newValue, oldValue) => {
@@ -156,8 +126,21 @@ watch(props, (newValue, oldValue) => {
 
 <style lang="less" scoped>
 .pdf-view {
+  height: 640px;
   background: #fff;
   display: flex;
   flex-direction: column;
+  // overflow-y: scroll;
+
+  .pdf-container {
+    // width: 900px;
+    // height: auto;
+    // min-height: 100px;
+    margin: 0 auto;
+
+    // transform: scale(0.2, 1);
+
+    overflow-y: scroll;
+  }
 }
 </style>
