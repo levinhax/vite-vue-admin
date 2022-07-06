@@ -8,6 +8,7 @@
     </div>
     <!-- <div class="pdf-container"> -->
     <div
+      id="pdfContainer"
       ref="refBox"
       class="pdf-container"
       :style="{
@@ -201,9 +202,10 @@ const handleScaleX = () => {
 // }
 
 const handleScroll = () => {
-  //
-  console.log('scroll')
-  console.log(refBox)
+  const pdfContainer: any = document.getElementById('pdfContainer')
+  const eleHeight: any = document.getElementById('pdfCanvas' + 1)
+  const currentPage = Math.ceil(pdfContainer.scrollTop / eleHeight.height)
+  state.pdfPageNum = currentPage
 }
 
 onMounted(async () => {
