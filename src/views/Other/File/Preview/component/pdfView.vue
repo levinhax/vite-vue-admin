@@ -8,12 +8,14 @@
     </div>
     <!-- <div class="pdf-container"> -->
     <div
+      ref="refBox"
       class="pdf-container"
       :style="{
         width: state.pdfWidth,
         height: state.pdfHeight,
         border: '1px solid green',
       }"
+      @scroll="handleScroll"
     >
       <!-- <canvas id="pdfCanvas" ref="refPdfCanvas"></canvas> -->
       <!-- v-show="state.pdfPageNum === page" -->
@@ -54,6 +56,7 @@ const props = defineProps({
   },
 })
 
+const refBox = ref<Element>()
 const state: Iprops = reactive({
   pdfDoc: '', // pdfjs 生成的对象
   pdfPageNum: 1, // 当前页数
@@ -63,7 +66,9 @@ const state: Iprops = reactive({
   pdfScale: 1, // 放大倍数
 })
 
-const renderPdf = (url: any) => {
+// let pdfDocumentProxy: any = null
+
+const renderPdf = async (url: any) => {
   console.log('renderPdf url: ', url)
   // data是一个ArrayBuffer格式，也是一个buffer流的数据
   pdfJs.getDocument(url).promise.then(pdfDoc => {
@@ -71,26 +76,30 @@ const renderPdf = (url: any) => {
     // pdfPages.value = pdfDoc._pdfInfo.numPages
 
     state.pdfDoc = pdfDoc
+    // pdfDocumentProxy = pdfDoc
     state.pdfPagesTotal = pdfDoc._pdfInfo.numPages
 
-    nextTick(() => {
-      renderPage(1, pdfDoc)
+    nextTick(async () => {
+      await renderPage(1, pdfDoc)
+      state.pdfPageNum = 1
+      console.log('pdfPageNum: ', state.pdfPageNum)
     })
   })
 }
 
 // 渲染pdf
 
-const renderPage = async (num = 1, pdfDoc: PDFDocumentProxy) => {
+// const renderPage = async (num = 1, pdfDoc: PDFDocumentProxy) => {
+const renderPage = async (num = 1, pdfDoc: any) => {
   //渲染pdf页
   console.log('渲染pdf页: ', num)
+  console.log('渲染pdf页: ', pdfDoc)
   state.pdfPageNum = num
   const pdfPageRender = await pdfDoc.getPage(num)
   // let canvas: any = toRaw(refPdfCanvas.value)
   let canvas: any = document.getElementById('pdfCanvas' + num)
   if (canvas == null) return
   const ctx = canvas.getContext('2d')
-
   const dpr = window.devicePixelRatio || 1
   const bsr =
     ctx.webkitBackingStorePixelRatio ||
@@ -131,14 +140,27 @@ const renderPage = async (num = 1, pdfDoc: PDFDocumentProxy) => {
 const handlePrev = () => {
   console.log('上一页')
   if (state.pdfPageNum > 1) {
-    renderPage(state.pdfPageNum - 1, state.pdfDoc)
+    // renderPage(state.pdfPageNum - 1, state.pdfDoc)
+    // renderPage(state.pdfPageNum - 1, pdfDocumentProxy)
+    state.pdfPageNum = state.pdfPageNum - 1
+    const toElement: any = document.getElementById('pdfCanvas' + state.pdfPageNum)
+    toElement.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth',
+    })
   }
 }
 
 const handleNext = () => {
   console.log('下一页')
+  console.log(state.pdfPageNum)
   if (state.pdfPagesTotal > state.pdfPageNum) {
-    renderPage(state.pdfPageNum + 1, state.pdfDoc)
+    state.pdfPageNum = state.pdfPageNum + 1
+    const toElement: any = document.getElementById('pdfCanvas' + state.pdfPageNum)
+    toElement.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth',
+    })
   }
 }
 
@@ -178,9 +200,20 @@ const handleScaleX = () => {
 //   })
 // }
 
-onMounted(() => {
+const handleScroll = () => {
+  //
+  console.log('scroll')
+  console.log(refBox)
+}
+
+onMounted(async () => {
   console.log('onMounted')
-  renderPdf(pdfFile)
+  await renderPdf(pdfFile)
+
+  // setTimeout(() => {
+  //   state.pdfPageNum = 1
+  //   console.log('pdfPageNum: ', state.pdfPageNum)
+  // }, 0)
 })
 
 watch(props, (newValue, oldValue) => {
@@ -195,6 +228,7 @@ watch(props, (newValue, oldValue) => {
   background: #fff;
   display: flex;
   flex-direction: column;
+  position: relative;
   // overflow-y: scroll;
 
   .pdf-container {
@@ -202,6 +236,8 @@ watch(props, (newValue, oldValue) => {
     // height: auto;
     // min-height: 100px;
     margin: 0 auto;
+    // transform: scale(0.5);
+    // transform-origin: left top;
 
     // transform: scale(0.2, 1);
 
