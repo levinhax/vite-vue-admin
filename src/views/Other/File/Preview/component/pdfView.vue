@@ -22,6 +22,7 @@
       <!-- v-show="state.pdfPageNum === page" -->
       <canvas v-for="page in state.pdfPagesTotal" :id="`pdfCanvas${page}`" :key="page"></canvas>
     </div>
+    <div class="other-container">其他内容</div>
   </div>
 </template>
 
@@ -110,7 +111,7 @@ const renderPage = async (num = 1, pdfDoc: any) => {
     ctx.backingStorePixelRatio ||
     1
   const ratio = dpr / bsr
-  const viewport = pdfPageRender.getViewport({ scale: state.pdfScale * 1 })
+  const viewport = pdfPageRender.getViewport({ scale: state.pdfScale * 2 })
   canvas.width = viewport.width * ratio
   canvas.height = viewport.height * ratio
   canvas.style.width = viewport.width + 'px'
@@ -242,8 +243,13 @@ watch(props, (newValue, oldValue) => {
     // transform-origin: left top;
 
     // transform: scale(0.2, 1);
+    zoom: 0.5;
 
     overflow-y: scroll;
+  }
+
+  .other-container {
+    border: 1px solid green;
   }
 }
 </style>
