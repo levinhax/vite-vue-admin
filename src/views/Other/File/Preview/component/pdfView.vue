@@ -1,5 +1,6 @@
 <template>
   <div class="pdf-view">
+    <div class="header" style="height: 200px">当前页：{{ state.pdfPageNum }}</div>
     <div class="pdf-control">
       <a-button @click="handlePrev">上一页</a-button>
       <a-button @click="handleNext">下一页</a-button>
@@ -34,7 +35,7 @@ import pdfFile from '../../../../../assets/file/前端新工具-Vite.pdf'
 import * as pdfJs from 'pdfjs-dist/legacy/build/pdf'
 // import * as pdfJsWorkerSrc from 'pdfjs-dist/legacy/build/pdf.worker.entry.js'
 import pdfJsWorkerSrc from 'pdfjs-dist/legacy/build/pdf.worker.entry.js'
-import { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api'
+// import { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api'
 // 设置pdf.worker.js文件的引入地址
 // pdfJs.GlobalWorkerOptions.workerSrc = require('pdfjs-dist/legacy/build/pdf.worker.entry.js')
 pdfJs.GlobalWorkerOptions.workerSrc = pdfJsWorkerSrc
@@ -94,8 +95,6 @@ const renderPdf = async (url: any) => {
 // const renderPage = async (num = 1, pdfDoc: PDFDocumentProxy) => {
 const renderPage = async (num = 1, pdfDoc: any) => {
   //渲染pdf页
-  console.log('渲染pdf页: ', num)
-  console.log('渲染pdf页: ', pdfDoc)
   state.pdfPageNum = num
   const pdfPageRender = await pdfDoc.getPage(num)
   // let canvas: any = toRaw(refPdfCanvas.value)
@@ -118,11 +117,9 @@ const renderPage = async (num = 1, pdfDoc: any) => {
   // canvas.style.height = viewport.height + 'px'
   // canvas.style.width = '100%'
   // canvas.style.height = '100%'
-  console.log('canvas: ', canvas.width, canvas.height, canvas.style.width, canvas.style.height)
   state.pdfWidth = viewport.width + 20 + 'px'
   state.pdfHeight = viewport.height + 'px'
   // console.log('viewport: ', viewport)
-  console.log('radio, dpr: ', ratio, dpr)
 
   // ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
   // ctx.setTransform(ratio, 0, 0, ratio, 0, 0)
@@ -205,7 +202,10 @@ const handleScaleX = () => {
 const handleScroll = () => {
   const pdfContainer: any = document.getElementById('pdfContainer')
   const eleHeight: any = document.getElementById('pdfCanvas' + 1)
-  const currentPage = Math.ceil(pdfContainer.scrollTop / eleHeight.height)
+  let currentPage = Math.ceil(pdfContainer.scrollTop / eleHeight.height)
+  if (currentPage < 1) {
+    currentPage = 1
+  }
   state.pdfPageNum = currentPage
 }
 
